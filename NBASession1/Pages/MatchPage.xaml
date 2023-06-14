@@ -1,0 +1,162 @@
+﻿<Page x:Class="NBASession1.Pages.MatchPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:NBASession1.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="Matchup List">
+
+    <Grid>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="10"
+                    HorizontalAlignment="Left"
+                    Orientation="Horizontal">
+
+            <Button x:Name="BtnBack"
+                    Click="BtnBack_Click"
+                    Width="30">
+                <Image Source="../Images/prev.png"/>
+            </Button>
+
+            <DatePicker x:Name="DateDate"
+                        SelectedDateChanged="DateDate_SelectedDateChanged"
+                        VerticalAlignment="Center"
+                        Width="200"/>
+
+            <Button x:Name="BtnNext"
+                    Click="BtnNext_Click"
+                    Width="30">
+                <Image Source="../Images/next.png"/>
+            </Button>
+            
+        </StackPanel>
+
+        <StackPanel Grid.Row="1"
+                    Margin="10"
+                    HorizontalAlignment="Center"
+                    Orientation="Horizontal"
+                    x:Name="StackMatch">
+
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10">
+
+                <Image x:Name="ImgAway"
+                       VerticalAlignment="Center"
+                       MaxWidth="100"
+                       Source="{Binding Team.Logo}"/>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Team.TeamName}"/>
+                    <TextBlock Text="(Away)"/>
+                </StackPanel>
+
+            </StackPanel>
+
+            <StackPanel VerticalAlignment="Center"
+                        Margin="20 10">
+                <TextBlock Text="VS"
+                           FontSize="26"
+                           TextAlignment="Center"/>
+                <TextBlock Text="{Binding Starttime, StringFormat={}Start: {0}}"/>
+            </StackPanel>
+            
+            <StackPanel Orientation="Horizontal"
+                        VerticalAlignment="Center"
+                        Margin="10">
+
+                <Image x:Name="ImgHome"
+                       VerticalAlignment="Center"
+                       MaxWidth="100"
+                       Source="{Binding Team1.Logo}"/>
+
+                <StackPanel VerticalAlignment="Center">
+                    <TextBlock Text="{Binding Team1.TeamName}"/>
+                    <TextBlock Text="(Home)"/>
+                </StackPanel>
+
+            </StackPanel>
+
+        </StackPanel>
+
+        <DataGrid x:Name="GridMatch"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True"
+                  Grid.Row="2">
+
+            <DataGrid.Columns>
+                
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="{Binding StatusName}"
+                                    Cursor="No"
+                                    Background="{Binding StatusColor}"
+                                    BorderThickness="0"
+                                    Width="100"
+                                    Foreground="White">
+                                <Button.Resources>
+                                    <Style TargetType="Border">
+                                        <Setter Property="CornerRadius" Value="0"/>
+                                    </Style>
+                                </Button.Resources>
+                            </Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding Starttime, StringFormat='MM/dd hh:mm'}"
+                                    Width="*"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Team.Logo}"
+                                   MaxWidth="40"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding Team.TeamName}"
+                                    Width="*"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Team1.Logo}"
+                                   MaxWidth="40"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+
+                <DataGridTextColumn Binding="{Binding Team1.TeamName}"
+                                    Width="*"/>
+
+                <DataGridTextColumn Binding="{Binding Location}"
+                                    Width="*"/>
+
+                <DataGridTemplateColumn>
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Button Content="View"
+                                    x:Name="BtnView"
+                                    Click="BtnView_Click"/>
+
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+                
+            </DataGrid.Columns>
+            
+        </DataGrid>
+        
+    </Grid>
+</Page>
